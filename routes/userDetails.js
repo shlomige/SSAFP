@@ -7,7 +7,9 @@ const {response} = require("express");
 /* GET users listing. */
 router.get('/:userID', async function(req, res, next) {
     try{
-        const user = await User.findOne({id:req.params.userID})
+        console.log(typeof (parseInt(req.params.userID)));
+        //const user = await User.findOne({id:parseInt(req.params.userID)})
+        const user = await User.findOne({id:123123});
         if (!user) {
             return res.status(404).send('User not found');
         }
