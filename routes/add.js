@@ -10,13 +10,15 @@ router.post('/', async function(req, res, next) {
         const userid = req.body.userid;
         const sum = req.body.sum;
         const date = req.body.date ? new Date(req.body.date) : undefined;
+        //if the value is not send in the body - it will be undefined and in the save to the DB it will get the default
+        //value - now
         if (!description || !category || !sum || !userid) {
           return res.status(400).send({"missing required parameters": true});
 
         }else {
             const expense = new Expense({userid,description,category,sum,  ...(date && { date })});
+            //only if the date value is exist it will be send to create new expense item
              await expense.save()
-            //console.log(description, category, sum,userid);
             return res.status(201).send(expense);
         }
     }
