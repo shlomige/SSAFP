@@ -9,11 +9,12 @@ router.post('/', async function(req, res, next) {
         const category = req.body.category;
         const userid = req.body.userid;
         const sum = req.body.sum;
+        const date = req.body.date ? new Date(req.body.date) : undefined;
         if (!description || !category || !sum || !userid) {
           return res.status(400).send({"missing required parameters": true});
 
         }else {
-            const expense = new Expense({userid,description,category,sum});
+            const expense = new Expense({userid,description,category,sum,  ...(date && { date })});
              await expense.save()
             //console.log(description, category, sum,userid);
             return res.status(201).send(expense);
