@@ -2,7 +2,36 @@ const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
 
-// GET
+/**
+ * GET /
+ * Retrieves a monthly expense report for a specific user.
+ *
+ * Required query parameters:
+ * - `id` (string): The user's ID
+ * - `year` (string or number): The year of the report (e.g., 2025)
+ * - `month` (string or number): The month of the report (1-12)
+ *
+ * The endpoint responds with a breakdown of expenses per category for the specified month.
+ *
+ * Response format:
+ * - `userid`: The user's ID
+ * - `year`: The requested year
+ * - `month`: The requested month
+ * - `costs`: An array of category objects, each containing expense items with `sum`, `description`, and `day`
+ *
+ * Status codes:
+ * - 200: Success, returns the expense report
+ * - 400: Missing required query parameters
+ * - 500: Internal server error
+ *
+ * @route GET /
+ * @param {express.Request} req - The request object
+ * @param {string} req.query.id - The user's ID
+ * @param {string|number} req.query.year - The year (e.g., 2025)
+ * @param {string|number} req.query.month - The month (1–12)
+ * @param {express.Response} res - The response object
+ * @returns {Promise<void>} Sends a JSON response with the report or an error message
+ */
 router.get('/', async (req, res) => {
     const { id, year, month } = req.query;
 

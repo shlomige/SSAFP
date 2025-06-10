@@ -2,7 +2,28 @@ var express = require('express');
 var router = express.Router();
 const Expense = require('../models/Expense');
 
-/* GET users listing. */
+/**
+ * POST /
+ * Adds a new expense entry to the database.
+ *
+ * Required fields in the request body:
+ * - `description` (string)
+ * - `category` (string)
+ * - `userid` (string)
+ * - `sum` (number)
+ * - `date` (optional, string or ISO date format). If not provided, the current date will be used by default.
+ *
+ * Responses:
+ * - 201: Returns the created expense object
+ * - 400: If any required fields are missing or if validation fails
+ * - 500: For any other server errors
+ *
+ * @route POST /
+ * @param {express.Request} req - The request object
+ * @param {express.Response} res - The response object
+ * @param {Function} next - The next middleware function
+ * @returns {Promise<void>} Sends a JSON response
+ */
 router.post('/', async function(req, res, next) {
     try {
         const description = req.body.description;

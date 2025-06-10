@@ -1,3 +1,26 @@
+/**
+ * Main application entry point.
+ *
+ * This file sets up and configures the Express application.
+ *
+ * - Connects to the MongoDB database
+ * - Configures view engine (Pug)
+ * - Sets up middleware: logging, parsing, static files
+ * - Defines routes for API endpoints
+ * - Handles 404 and general errors
+ *
+ * @module app
+ * @requires express
+ * @requires http-errors
+ * @requires path
+ * @requires cookie-parser
+ * @requires morgan
+ * @requires ./routes/add
+ * @requires ./routes/reports
+ * @requires ./routes/userDetails
+ * @requires ./routes/about
+ * @returns {express.Application} The configured Express app
+ */
 const connectDB = require('./db');
 connectDB();
 var createError = require('http-errors');
