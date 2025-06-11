@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
         });
 
         // Initialize costs per category
-        const categories = ['food', 'health', 'housing', 'education','hobbies'];
+        const categories = ['food', 'health', 'housing', 'education','sport'];
         const costs = categories.map(category => ({
             [category]: expenses
                 .filter(exp => exp.category === category)
