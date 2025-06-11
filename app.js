@@ -1,19 +1,43 @@
+/**
+ * Main application entry point.
+ *
+ * This file sets up and configures the Express application.
+ *
+ * - Connects to the MongoDB database
+ * - Configures view engine (Pug)
+ * - Sets up middleware: logging, parsing, static files
+ * - Defines routes for API endpoints
+ * - Handles 404 and general errors
+ *
+ * @module app
+ * @requires express
+ * @requires http-errors
+ * @requires path
+ * @requires cookie-parser
+ * @requires morgan
+ * @requires ./routes/add
+ * @requires ./routes/reports
+ * @requires ./routes/userDetails
+ * @requires ./routes/about
+ * @returns {express.Application} The configured Express app
+ */
 const connectDB = require('./db');
 connectDB();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const contactusRouter = require('./routes/contactus');
+
+const addRouter = require('./routes/add');
+const reportsRouter = require('./routes/reports');
+const userDetailsRouter = require('./routes/userDetails');
 const aboutRouter = require('./routes/about');
-const productsRouter = require('./routes/products');
-const servicesRouter = require('./routes/services');
 
-var app = express();
+
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,12 +49,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/Contact_Us',contactusRouter);
-app.use('/about',aboutRouter);
-app.use('/products',productsRouter);
-app.use('/services',servicesRouter);
+
+app.use('/api/add',addRouter);
+app.use('/api/users',userDetailsRouter);
+app.use('/api/about',aboutRouter);
+app.use('/api/report',reportsRouter);
 
 
 // catch 404 and forward to error handler
