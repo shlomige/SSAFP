@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const Expense = require('../models/Expense');
 
 /**
@@ -34,7 +34,7 @@ router.post('/', async function(req, res, next) {
         //if the value is not send in the body - it will be undefined and in the save to the DB it will get the default
         //value - now
         if (!description || !category || !sum || !userid) {
-          return res.status(400).send({"missing required parameters": true});
+          return res.status(400).send({'missing required parameters': true});
 
         }else {
             const expense = new Expense({userid,description,category,sum,  ...(date && { date })});
@@ -44,9 +44,9 @@ router.post('/', async function(req, res, next) {
         }
     }
     catch (error) {
-        console.error("Error adding expense:", error);
+        console.error('Error adding expense:', error);
         if (error.name === 'ValidationError') {
-            return res.status(400).send({ message: "Validation failed", errors: error.errors });
+            return res.status(400).send({ message: 'Validation failed', errors: error.errors });
         }
 
         // For any other unexpected errors
