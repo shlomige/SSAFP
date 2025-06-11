@@ -13,7 +13,7 @@ describe('GET /about', () => {
         expect(Array.isArray(res.body)).toBe(true);
         expect(res.body).toEqual([
             { first_name: 'Elisha', last_name: 'Lapid' },
-            { first_name: 'Shlomo', last_name: 'geva' }
+            { first_name: 'Shlomo', last_name: 'Geva' }
         ]);
     });
 });
